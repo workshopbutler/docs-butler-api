@@ -1,0 +1,845 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Workshop Butler API</title><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"><style>@import url('https://fonts.googleapis.com/css?family=Roboto:400,700|Inconsolata|Raleway:200');.hljs-comment,.hljs-title{color:#8e908c}.hljs-variable,.hljs-attribute,.hljs-tag,.hljs-regexp,.ruby .hljs-constant,.xml .hljs-tag .hljs-title,.xml .hljs-pi,.xml .hljs-doctype,.html .hljs-doctype,.css .hljs-id,.css .hljs-class,.css .hljs-pseudo{color:#c82829}.hljs-number,.hljs-preprocessor,.hljs-pragma,.hljs-built_in,.hljs-literal,.hljs-params,.hljs-constant{color:#f5871f}.ruby .hljs-class .hljs-title,.css .hljs-rules .hljs-attribute{color:#eab700}.hljs-string,.hljs-value,.hljs-inheritance,.hljs-header,.ruby .hljs-symbol,.xml .hljs-cdata{color:#718c00}.css .hljs-hexcolor{color:#3e999f}.hljs-function,.python .hljs-decorator,.python .hljs-title,.ruby .hljs-function .hljs-title,.ruby .hljs-title .hljs-keyword,.perl .hljs-sub,.javascript .hljs-title,.coffeescript .hljs-title{color:#4271ae}.hljs-keyword,.javascript .hljs-function{color:#8959a8}.hljs{display:block;background:white;color:#4d4d4c;padding:.5em}.coffeescript .javascript,.javascript .xml,.tex .hljs-formula,.xml .javascript,.xml .vbscript,.xml .css,.xml .hljs-cdata{opacity:.5}.right .hljs-comment{color:#969896}.right .css .hljs-class,.right .css .hljs-id,.right .css .hljs-pseudo,.right .hljs-attribute,.right .hljs-regexp,.right .hljs-tag,.right .hljs-variable,.right .html .hljs-doctype,.right .ruby .hljs-constant,.right .xml .hljs-doctype,.right .xml .hljs-pi,.right .xml .hljs-tag .hljs-title{color:#c66}.right .hljs-built_in,.right .hljs-constant,.right .hljs-literal,.right .hljs-number,.right .hljs-params,.right .hljs-pragma,.right .hljs-preprocessor{color:#de935f}.right .css .hljs-rule .hljs-attribute,.right .ruby .hljs-class .hljs-title{color:#f0c674}.right .hljs-header,.right .hljs-inheritance,.right .hljs-name,.right .hljs-string,.right .hljs-value,.right .ruby .hljs-symbol,.right .xml .hljs-cdata{color:#b5bd68}.right .css .hljs-hexcolor,.right .hljs-title{color:#8abeb7}.right .coffeescript .hljs-title,.right .hljs-function,.right .javascript .hljs-title,.right .perl .hljs-sub,.right .python .hljs-decorator,.right .python .hljs-title,.right .ruby .hljs-function .hljs-title,.right .ruby .hljs-title .hljs-keyword{color:#81a2be}.right .hljs-keyword,.right .javascript .hljs-function{color:#b294bb}.right .hljs{display:block;overflow-x:auto;background:#1d1f21;color:#c5c8c6;padding:.5em;-webkit-text-size-adjust:none}.right .coffeescript .javascript,.right .javascript .xml,.right .tex .hljs-formula,.right .xml .css,.right .xml .hljs-cdata,.right .xml .javascript,.right .xml .vbscript{opacity:.5}body{color:black;background:white;font:400 14px / 1.42 'Roboto',Helvetica,sans-serif}header{border-bottom:1px solid #f2f2f2;margin-bottom:12px}h1,h2,h3,h4,h5{color:black;margin:12px 0}h1 .permalink,h2 .permalink,h3 .permalink,h4 .permalink,h5 .permalink{margin-left:0;opacity:0;transition:opacity .25s ease}h1:hover .permalink,h2:hover .permalink,h3:hover .permalink,h4:hover .permalink,h5:hover .permalink{opacity:1}.triple h1 .permalink,.triple h2 .permalink,.triple h3 .permalink,.triple h4 .permalink,.triple h5 .permalink{opacity:.15}.triple h1:hover .permalink,.triple h2:hover .permalink,.triple h3:hover .permalink,.triple h4:hover .permalink,.triple h5:hover .permalink{opacity:.15}h1{font:200 36px 'Raleway',Helvetica,sans-serif;font-size:36px}h2{font:200 36px 'Raleway',Helvetica,sans-serif;font-size:30px}h3{font-size:100%;text-transform:uppercase}h5{font-size:100%;font-weight:normal}p{margin:0 0 10px}p.choices{line-height:1.6}a{color:#428bca;text-decoration:none}li p{margin:0}hr.split{border:0;height:1px;width:100%;padding-left:6px;margin:12px auto;background-image:linear-gradient(to right, rgba(0,0,0,0) 20%, rgba(0,0,0,0.2) 51.4%, rgba(255,255,255,0.2) 51.4%, rgba(255,255,255,0) 80%)}dl dt{float:left;width:130px;clear:left;text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:700}dl dd{margin-left:150px}blockquote{color:rgba(0,0,0,0.5);font-size:15.5px;padding:10px 20px;margin:12px 0;border-left:5px solid #e8e8e8}blockquote p:last-child{margin-bottom:0}pre{background-color:#f5f5f5;padding:12px;border:1px solid #cfcfcf;border-radius:6px;overflow:auto}pre code{color:black;background-color:transparent;padding:0;border:none}code{color:#444;background-color:#f5f5f5;font:'Inconsolata',monospace;padding:1px 4px;border:1px solid #cfcfcf;border-radius:3px}ul,ol{padding-left:2em}table{border-collapse:collapse;border-spacing:0;margin-bottom:12px}table tr:nth-child(2n){background-color:#fafafa}table th,table td{padding:6px 12px;border:1px solid #e6e6e6}.text-muted{opacity:.5}.note,.warning{padding:.3em 1em;margin:1em 0;border-radius:2px;font-size:90%}.note h1,.warning h1,.note h2,.warning h2,.note h3,.warning h3,.note h4,.warning h4,.note h5,.warning h5,.note h6,.warning h6{font-family:200 36px 'Raleway',Helvetica,sans-serif;font-size:135%;font-weight:500}.note p,.warning p{margin:.5em 0}.note{color:black;background-color:#f0f6fb;border-left:4px solid #428bca}.note h1,.note h2,.note h3,.note h4,.note h5,.note h6{color:#428bca}.warning{color:black;background-color:#fbf1f0;border-left:4px solid #c9302c}.warning h1,.warning h2,.warning h3,.warning h4,.warning h5,.warning h6{color:#c9302c}header{margin-top:24px}nav{position:fixed;top:24px;bottom:0;overflow-y:auto}nav .resource-group{padding:0}nav .resource-group .heading{position:relative}nav .resource-group .heading .chevron{position:absolute;top:12px;right:12px;opacity:.5}nav .resource-group .heading a{display:block;color:black;opacity:.7;border-left:2px solid transparent;margin:0}nav .resource-group .heading a:hover{text-decoration:none;background-color:bad-color;border-left:2px solid black}nav ul{list-style-type:none;padding-left:0}nav ul a{display:block;font-size:13px;color:rgba(0,0,0,0.7);padding:8px 12px;border-top:1px solid #d9d9d9;border-left:2px solid transparent;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}nav ul a:hover{text-decoration:none;background-color:bad-color;border-left:2px solid black}nav ul>li{margin:0}nav ul>li:first-child{margin-top:-12px}nav ul>li:last-child{margin-bottom:-12px}nav ul ul a{padding-left:24px}nav ul ul li{margin:0}nav ul ul li:first-child{margin-top:0}nav ul ul li:last-child{margin-bottom:0}nav>div>div>ul>li:first-child>a{border-top:none}.preload *{transition:none !important}.pull-left{float:left}.pull-right{float:right}.badge{display:inline-block;float:right;min-width:10px;min-height:14px;padding:3px 7px;font-size:12px;color:#000;background-color:#f2f2f2;border-radius:10px;margin:-2px 0}.badge.get{color:#70bbe1;background-color:#d9edf7}.badge.head{color:#70bbe1;background-color:#d9edf7}.badge.options{color:#70bbe1;background-color:#d9edf7}.badge.put{color:#f0db70;background-color:#fcf8e3}.badge.patch{color:#f0db70;background-color:#fcf8e3}.badge.post{color:#93cd7c;background-color:#dff0d8}.badge.delete{color:#ce8383;background-color:#f2dede}.collapse-button{float:right}.collapse-button .close{display:none;color:#428bca;cursor:pointer}.collapse-button .open{color:#428bca;cursor:pointer}.collapse-button.show .close{display:inline}.collapse-button.show .open{display:none}.collapse-content{max-height:0;overflow:hidden;transition:max-height .3s ease-in-out}nav{width:220px}.container{max-width:940px;margin-left:auto;margin-right:auto}.container .row .content{margin-left:244px;width:696px}.container .row:after{content:'';display:block;clear:both}.container-fluid nav{width:22%}.container-fluid .row .content{margin-left:24%}.container-fluid.triple nav{width:16.5%;padding-right:1px}.container-fluid.triple .row .content{position:relative;margin-left:16.5%;padding-left:24px}.middle:before,.middle:after{content:'';display:table}.middle:after{clear:both}.middle{box-sizing:border-box;width:51.5%;padding-right:12px}.right{box-sizing:border-box;float:right;width:48.5%;padding-left:12px}.right a{color:#428bca}.right h1,.right h2,.right h3,.right h4,.right h5,.right p,.right div{color:white}.right pre{background-color:#1d1f21;border:1px solid #1d1f21}.right pre coÅde{color:#c5c8c6}.right .description{margin-top:12px}.triple .resource-heading{font-size:125%}.definition{margin-top:12px;margin-bottom:12px}.definition .method{font-weight:bold}.definition .method.get{color:#2e8ab8}.definition .method.head{color:#2e8ab8}.definition .method.options{color:#2e8ab8}.definition .method.post{color:#56b82e}.definition .method.put{color:#b8a22e}.definition .method.patch{color:#b8a22e}.definition .method.delete{color:#b82e2e}.definition .uri{word-break:break-all;word-wrap:break-word}.definition .hostname{opacity:.5}.example-names{background-color:#eee;padding:12px;border-radius:6px}.example-names .tab-button{cursor:pointer;color:black;border:1px solid #ddd;padding:6px;margin-left:12px}.example-names .tab-button.active{background-color:#d5d5d5}.right .example-names{background-color:#444}.right .example-names .tab-button{color:white;border:1px solid #666;border-radius:6px}.right .example-names .tab-button.active{background-color:#5e5e5e}#nav-background{position:fixed;left:0;top:0;bottom:0;width:16.5%;padding-right:14.4px;background-color:#fbfbfb;border-right:1px solid #f0f0f0;z-index:-1}#right-panel-background{position:absolute;right:-12px;top:-12px;bottom:-12px;width:48.6%;background-color:#333;z-index:-1}@media (max-width:1200px){nav{width:198px}.container{max-width:840px}.container .row .content{margin-left:224px;width:606px}}@media (max-width:992px){nav{width:169.4px}.container{max-width:720px}.container .row .content{margin-left:194px;width:526px}}@media (max-width:768px){nav{display:none}.container{width:95%;max-width:none}.container .row .content,.container-fluid .row .content,.container-fluid.triple .row .content{margin-left:auto;margin-right:auto;width:95%}#nav-background{display:none}#right-panel-background{width:48.6%}}.back-to-top{position:fixed;z-index:1;bottom:0;right:24px;padding:4px 8px;color:rgba(0,0,0,0.5);background-color:#f2f2f2;text-decoration:none !important;border-top:1px solid #d9d9d9;border-left:1px solid #d9d9d9;border-right:1px solid #d9d9d9;border-top-left-radius:3px;border-top-right-radius:3px}.resource-group{padding:12px;margin-bottom:12px;background-color:white;border:1px solid #d9d9d9;border-radius:6px}.resource-group h2.group-heading,.resource-group .heading a{padding:12px;margin:-12px -12px 12px -12px;background-color:#f2f2f2;border-bottom:1px solid #d9d9d9;border-top-left-radius:6px;border-top-right-radius:6px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}.triple .content .resource-group{padding:0;border:none}.triple .content .resource-group h2.group-heading,.triple .content .resource-group .heading a{margin:0 0 12px 0;border:1px solid #d9d9d9}nav .resource-group .heading a{padding:12px;margin-bottom:0}nav .resource-group .collapse-content{padding:0}.action{margin-bottom:12px;padding:12px 12px 0 12px;overflow:hidden;border:1px solid transparent;border-radius:6px}.action h4.action-heading{padding:6px 12px;margin:-12px -12px 12px -12px;border-bottom:1px solid transparent;border-top-left-radius:6px;border-top-right-radius:6px;overflow:hidden}.action h4.action-heading .name{float:right;font-weight:normal;padding:6px 0}.action h4.action-heading .method{padding:6px 12px;margin-right:12px;border-radius:3px;display:inline-block}.action h4.action-heading .method.get{color:#fff;background-color:#337ab7}.action h4.action-heading .method.head{color:#fff;background-color:#337ab7}.action h4.action-heading .method.options{color:#fff;background-color:#337ab7}.action h4.action-heading .method.put{color:#fff;background-color:#ed9c28}.action h4.action-heading .method.patch{color:#fff;background-color:#ed9c28}.action h4.action-heading .method.post{color:#fff;background-color:#5cb85c}.action h4.action-heading .method.delete{color:#fff;background-color:#d9534f}.action h4.action-heading code{color:#444;background-color:#f5f5f5;border-color:#cfcfcf;font-weight:normal;word-break:break-all;display:inline-block;margin-top:2px}.action dl.inner{padding-bottom:2px}.action .title{border-bottom:1px solid white;margin:0 -12px -1px -12px;padding:12px}.action.get{border-color:#bce8f1}.action.get h4.action-heading{color:#337ab7;background:#d9edf7;border-bottom-color:#bce8f1}.action.head{border-color:#bce8f1}.action.head h4.action-heading{color:#337ab7;background:#d9edf7;border-bottom-color:#bce8f1}.action.options{border-color:#bce8f1}.action.options h4.action-heading{color:#337ab7;background:#d9edf7;border-bottom-color:#bce8f1}.action.post{border-color:#d6e9c6}.action.post h4.action-heading{color:#5cb85c;background:#dff0d8;border-bottom-color:#d6e9c6}.action.put{border-color:#faebcc}.action.put h4.action-heading{color:#ed9c28;background:#fcf8e3;border-bottom-color:#faebcc}.action.patch{border-color:#faebcc}.action.patch h4.action-heading{color:#ed9c28;background:#fcf8e3;border-bottom-color:#faebcc}.action.delete{border-color:#ebccd1}.action.delete h4.action-heading{color:#d9534f;background:#f2dede;border-bottom-color:#ebccd1}</style></head><body class="preload"><a href="#top" class="text-muted back-to-top"><i class="fa fa-toggle-up"></i>&nbsp;Back to top</a><div class="container"><div class="row"><nav><div class="resource-group"><div class="heading"><div class="chevron"><i class="open fa fa-angle-down"></i></div><a href="#top">Overview</a></div><div class="collapse-content"><ul><li><a href="#header-authentication">Authentication</a></li><li><a href="#header-api-keys">API Keys</a></li><li><a href="#header-errors">Errors</a></li></ul></div></div><div class="resource-group"><div class="heading"><div class="chevron"><i class="open fa fa-angle-down"></i></div><a href="#registration-forms">Registration Forms</a></div><div class="collapse-content"><ul><li><a href="#header-rendering-a-form">Rendering a Form</a></li><li><a href="#header-rendering-fields">Rendering Fields</a></li></ul></div></div><div class="resource-group"><div class="heading"><div class="chevron"><i class="open fa fa-angle-down"></i></div><a href="#attendees">Attendees</a></div><div class="collapse-content"><ul><li><a href="#header-important-info">Important Info</a></li><li><a href="#attendees-attendee-list">Attendee List</a><ul><li><a href="#attendees-attendee-list-post"><span class="badge post"><i class="fa fa-plus"></i></span>Create New Attendee</a></li><li><a href="#attendees-attendee-list-post-1"><span class="badge post"><i class="fa fa-plus"></i></span>Register New Attendee</a></li><li><a href="#attendees-attendee-list-get"><span class="badge get"><i class="fa fa-arrow-down"></i></span>Get Attendees</a></li></ul></li></ul></div></div><div class="resource-group"><div class="heading"><div class="chevron"><i class="open fa fa-angle-down"></i></div><a href="#evaluations">Evaluations</a></div><div class="collapse-content"><ul><li><a href="#evaluations-evaluations">Evaluations</a><ul><li><a href="#evaluations-evaluations-post"><span class="badge post"><i class="fa fa-plus"></i></span>Create New Evaluation</a></li><li><a href="#evaluations-evaluations-get"><span class="badge get"><i class="fa fa-arrow-down"></i></span>Get Evaluations</a></li></ul></li></ul></div></div><div class="resource-group"><div class="heading"><div class="chevron"><i class="open fa fa-angle-down"></i></div><a href="#events">Events</a></div><div class="collapse-content"><ul><li><a href="#events-events-list-get"><span class="badge get"><i class="fa fa-arrow-down"></i></span>Get Events</a></li><li><a href="#events-event-get"><span class="badge get"><i class="fa fa-arrow-down"></i></span>Get Event</a></li></ul></div></div><div class="resource-group"><div class="heading"><div class="chevron"><i class="open fa fa-angle-down"></i></div><a href="#event-requests">Event Requests</a></div><div class="collapse-content"><ul><li><a href="#event-requests-event-requests-post"><span class="badge post"><i class="fa fa-plus"></i></span>Create New Event Request</a></li></ul></div></div><div class="resource-group"><div class="heading"><div class="chevron"><i class="open fa fa-angle-down"></i></div><a href="#facilitators">Facilitators</a></div><div class="collapse-content"><ul><li><a href="#facilitators-facilitators">Facilitators</a><ul><li><a href="#facilitators-facilitators-get"><span class="badge get"><i class="fa fa-arrow-down"></i></span>Facilitator List</a></li><li><a href="#facilitators-facilitators-get-1"><span class="badge get"><i class="fa fa-arrow-down"></i></span>Get Facilitator</a></li></ul></li></ul></div></div><p style="text-align: center; word-wrap: break-word;"><a href="https://api.workshopbutler.com">https://api.workshopbutler.com</a></p></nav><div class="content"><header><h1 id="top">Workshop Butler API</h1></header><p>The Workshop Butler API provides a set of methods to integrate
+accounts of knowledge brands and independent trainers with their websites
+to show scheduled events and licensed trainers, accept registrations and
+evaluations.</p>
+<p>Our API has predictable, resource-oriented URLs, and uses HTTP response
+codes to indicate API errors. We use built-in HTTP features,
+like HTTP authentication and HTTP verbs, which are understood by
+off-the-shelf HTTP clients.</p>
+<p>JSON is returned by all API responses, including errors.
+All input should be sent in JSON format.</p>
+<blockquote>
+<p>Workshop Butler API provides only a limited functionality, and cannot be
+considered as a full-scaled REST API for Workshop Butler platform.</p>
+</blockquote>
+<h2 id="header-authentication">Authentication <a class="permalink" href="#header-authentication" aria-hidden="true">¶</a></h2>
+<p>API requests require an API key. This key is unique for your account. Do not share your secret API keys in publicly
+accessible areas such GitHub, client-side code, and so forth.</p>
+<p>All API requests must be made over HTTPS. API requests without authentication will also fail.</p>
+<p>There are two ways you can pass API key. The first one is as
+GET query parameter.</p>
+<p><strong>GET Query parameter</strong></p>
+<pre><code class="language-http">curl 'https://api.workshopbutler.com/facilitators?api_key=YOUR_KEY'</code></pre>
+<p>The second option is HTTP header.</p>
+<p><strong>HTTP Header</strong></p>
+<pre><code class="language-http">curl -H 'X-Api-Key: YOUR_KEY' 'https://api.workshopbutler.com/facilitators'</code></pre>
+<h3 id="header-api-keys">API Keys <a class="permalink" href="#header-api-keys" aria-hidden="true">¶</a></h3>
+<p>The API supports two types of accounts: knowledge brand and trainer. Each type of accounts
+has its own key pattern.</p>
+<p>API keys for knowledge brand accounts has <code>ppk_</code> prefix. API keys for trainers are shorter
+and starts with <code>tpk_</code>.</p>
+<p>To acquire the key:</p>
+<ul>
+<li>
+<p>for a knowledge brand, open <strong>API</strong> tab in <strong>Account Settings</strong></p>
+</li>
+<li>
+<p>for a trainer, open <strong>Website Integration</strong> tab in <strong>Account Settings</strong>.</p>
+</li>
+</ul>
+<h2 id="header-errors">Errors <a class="permalink" href="#header-errors" aria-hidden="true">¶</a></h2>
+<p>Workshop Butler uses HTTP response codes to report about an error. Any response with
+4xx or 5xx is an error and should be handled appropriately.</p>
+<p>All errors are in JSON format. Each error contains two required attributes: <code>code</code> and <code>message</code>.
+<code>code</code> has an internal numeric identifier of the error. <code>message</code> gives you a better understanding
+why the error occurred. Some errors may have additional attribute <code>info</code> which contains
+a detailed description of the error.</p>
+<p>The example of an ordinary API error is below:</p>
+<pre><code class="language-json">{
+  "<span class="hljs-attribute">code</span>": <span class="hljs-value"><span class="hljs-number">404</span></span>,
+  "<span class="hljs-attribute">message</span>": <span class="hljs-value"><span class="hljs-string">"Not Found"</span></span>,
+  "<span class="hljs-attribute">info</span>": <span class="hljs-value"><span class="hljs-string">"The event with id=405 is not found"</span>
+</span>}</code></pre>
+<section id="registration-forms" class="resource-group"><h2 class="group-heading">Registration Forms <a href="#registration-forms" class="permalink">&para;</a></h2><p>Workshop Butler allows users to configure what information they want to collect
+during the registration. The users can add new fields of several different types,
+make fields optional or required, and add fill-in instructions for the forms.</p>
+<p>As a result, a set of attendee attributes, passed to the system through API for
+successful registration, can differ from event to event. You can hard-code
+a predefined set of fields on a registration form but you will limit a user’s
+ability to tweak the system for their needs.</p>
+<p>This section explains how to implement registration forms correctly.</p>
+<h3 id="header-rendering-a-form">Rendering a Form <a class="permalink" href="#header-rendering-a-form" aria-hidden="true">¶</a></h3>
+<p>When you request an <a href="#events-events-get">event</a>, the response contains two attributes,
+related to the look of the form:</p>
+<ul>
+<li>
+<p><code>instructions</code></p>
+</li>
+<li>
+<p><code>registration_form</code></p>
+</li>
+</ul>
+<p>The former one is a text with some instructions from the user to visitors on how
+to fill-in the form. For example,</p>
+<ul>
+<li>
+<p><em>Add your food preferences to the comment</em></p>
+</li>
+<li>
+<p><em>Please, describe what your main goal for joining a workshop is</em></p>
+</li>
+</ul>
+<p>The latter one is an array with sections and fields, the user expects visitors to fill in.
+Each section has a name and one or several fields it contains.</p>
+<p>The sections and the fields are ordered the way a user wants. Try not to change
+the order if there are no other requirements from your users.</p>
+<p>For example, this is a simplified form structure:</p>
+<pre><code class="language-json">[{
+   "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Personal Info"</span></span>,
+   "<span class="hljs-attribute">fields</span>": <span class="hljs-value">[
+     ...
+   ]
+ </span>},{
+   "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Billing Address"</span></span>,
+   "<span class="hljs-attribute">fields</span>": <span class="hljs-value">[
+     ...
+   ]
+ </span>}]</code></pre>
+<p>Based on it, you can create a form like:</p>
+<pre><code class="language-HTML"><span class="hljs-tag">&lt;<span class="hljs-title">form</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">fieldset</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">legend</span>&gt;</span>Personal Info<span class="hljs-tag">&lt;/<span class="hljs-title">legend</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">....</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-title">fieldset</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">fieldset</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">legend</span>&gt;</span>Billing Address<span class="hljs-tag">&lt;/<span class="hljs-title">legend</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">....</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-title">fieldset</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">form</span>&gt;</span></code></pre>
+<h3 id="header-rendering-fields">Rendering Fields <a class="permalink" href="#header-rendering-fields" aria-hidden="true">¶</a></h3>
+<p>Each field has four attributes: <code>name</code>, <code>type</code>, <code>required</code> and <code>label</code>. <code>select</code>
+field contains one more attribute with the list of options.</p>
+<pre><code class="language-json">{
+  "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"first_name"</span></span>,
+  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"text"</span></span>,
+  "<span class="hljs-attribute">required</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
+  "<span class="hljs-attribute">label</span>": <span class="hljs-value"><span class="hljs-string">"First Name"</span>
+</span>}</code></pre>
+<p>From this JSON you may create a code similar to:</p>
+<pre><code class="language-HTML"><span class="hljs-tag">&lt;<span class="hljs-title">label</span> <span class="hljs-attribute">for</span>=<span class="hljs-value">"first_name"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"required"</span>&gt;</span>
+  First Name
+  <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"text"</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">"first_name"</span>/&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">label</span>&gt;</span></code></pre>
+<p><code>name</code> is an unique field name which is passed to <a href="#attendees-attendee-list-post-1">through API</a>
+along with a field’s value. Using the <code>name</code>, Workshop Butler maps the passed
+parameters to relevant attendee’s attributes.</p>
+<div class="warning">
+<p>It is up to you to check if a visitor fills in the fields with <code>required=true</code>.
+The system returns an error if one or several required fields are empty.</p>
+</div>
+<p>There are 8 field types:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:right">Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">text</td>
+<td>Basic input field, <code>HTML &lt;input type=&quot;text&quot; ..&gt;</code></td>
+</tr>
+<tr>
+<td style="text-align:right">checkbox</td>
+<td>Checkbox with true/false value, <code>HTML &lt;input type=&quot;checkbox&quot; ...&gt;</code></td>
+</tr>
+<tr>
+<td style="text-align:right">select</td>
+<td>Select field, <code>HTML &lt;select name=&quot;&quot;&gt;&lt;option&gt;... &lt;/select&gt;</code></td>
+</tr>
+<tr>
+<td style="text-align:right">date</td>
+<td>Date in format YYYY-MM-DD, <code>HTML &lt;input type=&quot;date&quot; ...&gt;</code></td>
+</tr>
+<tr>
+<td style="text-align:right">textarea</td>
+<td>Large text input, <code>HTML &lt;textarea ....&gt;</code></td>
+</tr>
+<tr>
+<td style="text-align:right">email</td>
+<td>Email, <code>HTML &lt;input type=&quot;email&quot; ...&gt;</code></td>
+</tr>
+<tr>
+<td style="text-align:right">country</td>
+<td>List of countries to select from. A passed value for this field should be an ISO 8166-2 country code (<strong>de</strong>, <strong>RU</strong>).</td>
+</tr>
+<tr>
+<td style="text-align:right">ticket</td>
+<td>A selector with available ticket types. The ticket types are in <code>paid_ticket_types</code> attribute.</td>
+</tr>
+</tbody>
+</table>
+<p>Workshop Butler gives you plenty of information to render a beautiful yet
+fully functional dynamical registration form.</p>
+</section><section id="attendees" class="resource-group"><h2 class="group-heading">Attendees <a href="#attendees" class="permalink">&para;</a></h2><p>An attendee represents a person participating in an event and has three required
+attributes: first name, last name and email. Other attributes may be either optional
+or required, depending on user settings.</p>
+<h2 id="header-important-info">Important Info <a class="permalink" href="#header-important-info" aria-hidden="true">¶</a></h2>
+<p>There are two ways to create an attendee. The difference is in how Workshop Butler
+reacts for a new attendee.</p>
+<p>When you <a href="#attendees-attendee-list-post">create a new attendee</a>, the system:</p>
+<ol>
+<li>
+<p>adds a new attendee object</p>
+</li>
+<li>
+<p>sets the attendee’s <code>participated</code> attributes to <code>true</code></p>
+</li>
+</ol>
+<p>When you <a href="#attendees-attendee-list-post-1">register a new attendee</a>, the system:</p>
+<ol>
+<li>
+<p>checks if a selected ticket is available</p>
+</li>
+<li>
+<p>adds a new attendee object</p>
+</li>
+<li>
+<p>triggers <code>New Attendee</code> event.</p>
+</li>
+</ol>
+<p>Getting <code>New Attendee</code> event the system:</p>
+<ul>
+<li>
+<p>sends a welcome email to the attendee’s email address.</p>
+</li>
+<li>
+<p>sends a notification to team members about new registration.</p>
+</li>
+</ul>
+<p>While integrating your website with Workshop Butler, prefer to use <a href="#attendees-attendee-list-post-1"><code>register</code></a> action
+for a registration form. Use <a href="#attendees-attendee-list-post"><code>create</code></a> action only on an evaluation form, when you know
+for sure the attendee has participated.</p>
+<div id="attendees-attendee-list" class="resource"><h3 class="resource-heading">Attendee List <a href="#attendees-attendee-list" class="permalink">&nbsp;&para;</a></h3><div id="attendees-attendee-list-post" class="action post"><h4 class="action-heading"><div class="name">Create New Attendee</div><a href="#attendees-attendee-list-post" class="method post">POST</a><code class="uri">/attendees</code></h4><p>Adds a new attendee to the system without additional checks and without triggering
+<code>New Attendee</code> event.</p>
+<p>On success, the system returns <code>201</code> response code. On failure, the system returns:</p>
+<ul>
+<li>
+<p><code>403</code> response code when the account does not have an access to the event and cannot add a new attendee to it;</p>
+</li>
+<li>
+<p><code>422</code> response code when the request has invalid data and cannot be processed</p>
+</li>
+</ul>
+<h4>Example URI</h4><div class="definition"><span class="method post">POST</span>&nbsp;<span class="uri"><span class="hostname">https://api.workshopbutler.com</span>/attendees</span></div><div class="title"><strong>Request</strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
+  "<span class="hljs-attribute">event_id</span>": <span class="hljs-value"><span class="hljs-number">123</span></span>,
+  "<span class="hljs-attribute">first_name</span>": <span class="hljs-value"><span class="hljs-string">"Carl"</span></span>,
+  "<span class="hljs-attribute">last_name</span>": <span class="hljs-value"><span class="hljs-string">"Maddow"</span></span>,
+  "<span class="hljs-attribute">email</span>": <span class="hljs-value"><span class="hljs-string">"carl.maddow@test.com"</span></span>,
+  "<span class="hljs-attribute">date_of_birth</span>": <span class="hljs-value"><span class="hljs-string">"1951-09-17"</span></span>,
+  "<span class="hljs-attribute">country</span>": <span class="hljs-value"><span class="hljs-string">"NL"</span></span>,
+  "<span class="hljs-attribute">city</span>": <span class="hljs-value"><span class="hljs-string">"Amsterdam"</span></span>,
+  "<span class="hljs-attribute">province</span>": <span class="hljs-value"><span class="hljs-string">"Holland"</span></span>,
+  "<span class="hljs-attribute">organisation</span>": <span class="hljs-value"><span class="hljs-string">"Lost Beauty BV"</span></span>,
+  "<span class="hljs-attribute">role</span>": <span class="hljs-value"><span class="hljs-string">"Developer"</span>
+</span>}</code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>201</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
+  "<span class="hljs-attribute">attendee_id</span>": <span class="hljs-value"><span class="hljs-number">1</span>
+</span>}</code></pre><div style="height: 1px;"></div><h5>Schema</h5><pre><code>{
+  "<span class="hljs-attribute">$schema</span>": <span class="hljs-value"><span class="hljs-string">"http://json-schema.org/draft-04/schema#"</span></span>,
+  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
+  "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">attendee_id</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span></span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"The ID of a created attendee"</span>
+    </span>}
+  </span>}
+</span>}</code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>403</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
+  "<span class="hljs-attribute">code</span>": <span class="hljs-value"><span class="hljs-number">403</span></span>,
+  "<span class="hljs-attribute">message</span>": <span class="hljs-value"><span class="hljs-string">"Forbidden Request"</span></span>,
+  "<span class="hljs-attribute">info</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">event_id</span>": <span class="hljs-value"><span class="hljs-string">"This parameter is required"</span>
+  </span>}
+</span>}</code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>422</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
+  "<span class="hljs-attribute">code</span>": <span class="hljs-value"><span class="hljs-number">422</span></span>,
+  "<span class="hljs-attribute">message</span>": <span class="hljs-value"><span class="hljs-string">"Validation failed"</span></span>,
+  "<span class="hljs-attribute">info</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">event_id</span>": <span class="hljs-value"><span class="hljs-string">"This parameter is required"</span>
+  </span>}
+</span>}</code></pre><div style="height: 1px;"></div></div></div></div><div id="attendees-attendee-list-post-1" class="action post"><h4 class="action-heading"><div class="name">Register New Attendee</div><a href="#attendees-attendee-list-post-1" class="method post">POST</a><code class="uri">/attendees/register</code></h4><p>Adds a new attendee to the system after a ticket check, and triggers <code>New Attendee</code>
+event.</p>
+<div class="note">
+<p>You should prefer this action to <a href="#attendees-attendee-list-post"><code>create</code></a>. For more details, read <a href="#header-important-info">Important info</a>.</p>
+</div>
+<p>The POST parameters for this request vary and are based on the configuration of
+registration form. For more information, read <a href="#registraiton-forms">Registration Forms</a>.</p>
+<p>On success, the system returns <code>201</code> response code. On failure, the system returns:</p>
+<ul>
+<li>
+<p><code>403</code> response code when the account does not have an access to the event and cannot add a new attendee to it;</p>
+</li>
+<li>
+<p><code>422</code> response code when the request has invalid data and cannot be processed</p>
+</li>
+</ul>
+<h4>Example URI</h4><div class="definition"><span class="method post">POST</span>&nbsp;<span class="uri"><span class="hostname">https://api.workshopbutler.com</span>/attendees/register</span></div><div class="title"><strong>Response&nbsp;&nbsp;<code>201</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
+  "<span class="hljs-attribute">attendee_id</span>": <span class="hljs-value"><span class="hljs-number">1234</span>
+</span>}</code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>403</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
+  "<span class="hljs-attribute">code</span>": <span class="hljs-value"><span class="hljs-number">403</span></span>,
+  "<span class="hljs-attribute">message</span>": <span class="hljs-value"><span class="hljs-string">"Forbidden Request"</span>
+</span>}</code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>422</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
+  "<span class="hljs-attribute">code</span>": <span class="hljs-value"><span class="hljs-number">422</span></span>,
+  "<span class="hljs-attribute">message</span>": <span class="hljs-value"><span class="hljs-string">"Validation failed"</span></span>,
+  "<span class="hljs-attribute">info</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">event_id</span>": <span class="hljs-value"><span class="hljs-string">"This parameter is required"</span>
+  </span>}
+</span>}</code></pre><div style="height: 1px;"></div></div></div></div><div id="attendees-attendee-list-get" class="action get"><h4 class="action-heading"><div class="name">Get Attendees</div><a href="#attendees-attendee-list-get" class="method get">GET</a><code class="uri">/attendees{?sort}</code></h4><p>Returns the list of all attendees for the account. The attendees are returned sorted by creation date,
+with the most recent attendees appearing last.</p>
+<div class="warning">
+<h4 id="header-caution"><i class="fa fa-warning"></i> Caution <a class="permalink" href="#header-caution" aria-hidden="true">¶</a></h4>
+<p>this method is available only for trainer’s accounts. The owners of knowledge
+brand accounts will get <code>403 Forbidden</code> response.</p>
+</div>
+<h4>Example URI</h4><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname">https://api.workshopbutler.com</span>/attendees?<span class="hljs-attribute">sort=</span><span class="hljs-literal"></span></span></div><div class="title"><strong>URI Parameters</strong><div class="collapse-button show"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><dl class="inner"><dt>sort</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-info default"><strong>Default:&nbsp;</strong><span>+created</span></span>&nbsp;<p>Sort field and order</p>
+<p class="choices"><strong>Choices:&nbsp;</strong><code>+created</code> <code>-created</code> </p></dd></dl></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>[
+  {
+    "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
+    "<span class="hljs-attribute">first_name</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
+    "<span class="hljs-attribute">last_name</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
+    "<span class="hljs-attribute">date_of_birth</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
+    "<span class="hljs-attribute">email</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
+    "<span class="hljs-attribute">country</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
+    "<span class="hljs-attribute">city</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
+    "<span class="hljs-attribute">street_1</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
+    "<span class="hljs-attribute">street_2</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
+    "<span class="hljs-attribute">postcode</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
+    "<span class="hljs-attribute">province</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
+    "<span class="hljs-attribute">organisation</span>": <span class="hljs-value"><span class="hljs-string">"Bug Cleaner Ltd."</span></span>,
+    "<span class="hljs-attribute">work_address</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">country</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
+      "<span class="hljs-attribute">city</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
+      "<span class="hljs-attribute">street_1</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
+      "<span class="hljs-attribute">street_2</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
+      "<span class="hljs-attribute">postcode</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
+      "<span class="hljs-attribute">province</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">billing_address</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">country</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
+      "<span class="hljs-attribute">city</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
+      "<span class="hljs-attribute">street_1</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
+      "<span class="hljs-attribute">street_2</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
+      "<span class="hljs-attribute">postcode</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
+      "<span class="hljs-attribute">province</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">tax_info</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">vat_name</span>": <span class="hljs-value"><span class="hljs-string">"IVA"</span></span>,
+      "<span class="hljs-attribute">vat_number</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">phone</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
+    "<span class="hljs-attribute">comment</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
+    "<span class="hljs-attribute">blog</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
+    "<span class="hljs-attribute">website</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
+    "<span class="hljs-attribute">role</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
+    "<span class="hljs-attribute">price</span>": <span class="hljs-value"><span class="hljs-string">"EUR 100"</span></span>,
+    "<span class="hljs-attribute">event</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"43AB243"</span></span>,
+      "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
+      "<span class="hljs-attribute">start</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
+      "<span class="hljs-attribute">end</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
+      "<span class="hljs-attribute">location</span>": <span class="hljs-value">{
+        "<span class="hljs-attribute">country</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
+        "<span class="hljs-attribute">country_code</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
+        "<span class="hljs-attribute">city</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span>
+      </span>}
+    </span>}
+  </span>}
+]</code></pre><div style="height: 1px;"></div><h5>Schema</h5><pre><code>{
+  "<span class="hljs-attribute">$schema</span>": <span class="hljs-value"><span class="hljs-string">"http://json-schema.org/draft-04/schema#"</span></span>,
+  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"array"</span>
+</span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></section><section id="evaluations" class="resource-group"><h2 class="group-heading">Evaluations <a href="#evaluations" class="permalink">&para;</a></h2><div id="evaluations-evaluations" class="resource"><h3 class="resource-heading">Evaluations <a href="#evaluations-evaluations" class="permalink">&nbsp;&para;</a></h3><p>An evaluation is a feedback provided by attendee to trainer. It consists of the answers
+to 10 questions.</p>
+<div id="evaluations-evaluations-post" class="action post"><h4 class="action-heading"><div class="name">Create New Evaluation</div><a href="#evaluations-evaluations-post" class="method post">POST</a><code class="uri">/evaluations</code></h4><p>Adds a new evaluation to the system and informs a trainer (or trainers) about it
+via email</p>
+<div class="warning">
+<h4 id="header-caution-1"><i class="fa fa-warning"></i> Caution <a class="permalink" href="#header-caution-1" aria-hidden="true">¶</a></h4>
+<p>this method is available only for knowledge brand’s accounts. The owners of trainer
+accounts will get <code>403 Forbidden</code> response.</p>
+</div>
+<h4>Example URI</h4><div class="definition"><span class="method post">POST</span>&nbsp;<span class="uri"><span class="hostname">https://api.workshopbutler.com</span>/evaluations</span></div><div class="title"><strong>Response&nbsp;&nbsp;<code>201</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
+  "<span class="hljs-attribute">evaluation_id</span>": <span class="hljs-value"><span class="hljs-number">4302</span>
+</span>}</code></pre><div style="height: 1px;"></div><h5>Schema</h5><pre><code>{
+  "<span class="hljs-attribute">$schema</span>": <span class="hljs-value"><span class="hljs-string">"http://json-schema.org/draft-04/schema#"</span></span>,
+  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
+  "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">evaluation_id</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span></span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"The ID of a created evaluation"</span>
+    </span>}
+  </span>}
+</span>}</code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>403</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
+  "<span class="hljs-attribute">code</span>": <span class="hljs-value"><span class="hljs-number">403</span></span>,
+  "<span class="hljs-attribute">message</span>": <span class="hljs-value"><span class="hljs-string">"Forbidden Request"</span>
+</span>}</code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>409</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
+  "<span class="hljs-attribute">code</span>": <span class="hljs-value"><span class="hljs-number">403</span></span>,
+  "<span class="hljs-attribute">message</span>": <span class="hljs-value"><span class="hljs-string">"An evaluation for the attendee exists. Only one evaluation per attendee per event is allowed"</span>
+</span>}</code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>422</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
+  "<span class="hljs-attribute">code</span>": <span class="hljs-value"><span class="hljs-number">422</span></span>,
+  "<span class="hljs-attribute">message</span>": <span class="hljs-value"><span class="hljs-string">"Validation failed"</span></span>,
+  "<span class="hljs-attribute">info</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">event_id</span>": <span class="hljs-value"><span class="hljs-string">"This parameter is required"</span>
+  </span>}
+</span>}</code></pre><div style="height: 1px;"></div></div></div></div><div id="evaluations-evaluations-get" class="action get"><h4 class="action-heading"><div class="name">Get Evaluations</div><a href="#evaluations-evaluations-get" class="method get">GET</a><code class="uri">/evaluations{?sort}</code></h4><p>Returns the list of all your evaluations. The evaluations are returned sorted by creation date,
+with the most recent evaluations appearing last.</p>
+<div class="warning">
+<h4 id="header-caution-2"><i class="fa fa-warning"></i> Caution <a class="permalink" href="#header-caution-2" aria-hidden="true">¶</a></h4>
+<p>this method is available only for trainer’s accounts. The owners of knowledge
+brand accounts will get <code>403 Forbidden</code> response.</p>
+</div>
+<h4>Example URI</h4><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname">https://api.workshopbutler.com</span>/evaluations?<span class="hljs-attribute">sort=</span><span class="hljs-literal"></span></span></div><div class="title"><strong>URI Parameters</strong><div class="collapse-button show"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><dl class="inner"><dt>sort</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-info default"><strong>Default:&nbsp;</strong><span>+created</span></span>&nbsp;<p>Sort field and order</p>
+<p class="choices"><strong>Choices:&nbsp;</strong><code>+created</code> <code>-created</code> </p></dd></dl></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>[
+  {
+    "<span class="hljs-attribute">event</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">123</span></span>,
+      "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">attendee</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
+      "<span class="hljs-attribute">first_name</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
+      "<span class="hljs-attribute">last_name</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
+      "<span class="hljs-attribute">email</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
+    "<span class="hljs-attribute">question_1</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">question</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
+      "<span class="hljs-attribute">answer</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">question_2</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">question</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
+      "<span class="hljs-attribute">answer</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">question_3</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">question</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
+      "<span class="hljs-attribute">answer</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">question_4</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">question</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
+      "<span class="hljs-attribute">answer</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">question_5</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">question</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
+      "<span class="hljs-attribute">answer</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">question_6</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">question</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
+      "<span class="hljs-attribute">answer</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">question_7</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">question</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
+      "<span class="hljs-attribute">answer</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">question_8</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">question</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
+      "<span class="hljs-attribute">answer</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">question_9</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">question</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
+      "<span class="hljs-attribute">answer</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">question_10</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">question</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
+      "<span class="hljs-attribute">answer</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span>
+    </span>}
+  </span>}
+]</code></pre><div style="height: 1px;"></div><h5>Schema</h5><pre><code>{
+  "<span class="hljs-attribute">$schema</span>": <span class="hljs-value"><span class="hljs-string">"http://json-schema.org/draft-04/schema#"</span></span>,
+  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"array"</span>
+</span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></section><section id="events" class="resource-group"><h2 class="group-heading">Events <a href="#events" class="permalink">&para;</a></h2><div id="events-events-list" class="resource"><h3 class="resource-heading">Events List <a href="#events-events-list" class="permalink">&nbsp;&para;</a></h3><div id="events-events-list-get" class="action get"><h4 class="action-heading"><div class="name">Get Events</div><a href="#events-events-list-get" class="method get">GET</a><code class="uri">/events?future={future}&amp;public={public}&amp;achived={archived}&amp;countryCode={country}&amp;eventType={type}</code></h4><p>Get a list of events</p>
+<h4>Example URI</h4><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname">https://api.workshopbutler.com</span>/events?future=<span class="hljs-attribute" title="future">future</span>&public=<span class="hljs-attribute" title="public">public</span>&achived=<span class="hljs-attribute" title="archived">archived</span>&countryCode=<span class="hljs-attribute" title="country">"DE"</span>&eventType=<span class="hljs-attribute" title="type">1</span></span></div><div class="title"><strong>URI Parameters</strong><div class="collapse-button show"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><dl class="inner"><dt>future</dt><dd><code>boolean</code>&nbsp;<span>(optional)</span>&nbsp;<p>If true, only future events in the list. If false, only past events in the list.</p>
+</dd><dt>public</dt><dd><code>boolean</code>&nbsp;<span>(optional)</span>&nbsp;<p>If true, only public events in the list. If false, only private events int he list.</p>
+</dd><dt>archived</dt><dd><code>boolean</code>&nbsp;<span>(optional)</span>&nbsp;<p>If true, only archived events in the list. If false, only active events in the list</p>
+</dd><dt>country</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>&quot;DE&quot;</span></span><p>ISO 8166-2 country code. If set, only events from this country in the list.</p>
+</dd><dt>type</dt><dd><code>number</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>1</span></span><p>Id of event type. If set, only events with this type in the list.</p>
+</dd></dl></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>[
+  {
+    "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">193</span></span>,
+    "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"Management 3.0 two day course"</span></span>,
+    "<span class="hljs-attribute">type</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
+      "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Standard 2-days Course"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">spoken_languages</span>": <span class="hljs-value">[
+      <span class="hljs-string">"German"</span>
+    ]</span>,
+    "<span class="hljs-attribute">start</span>": <span class="hljs-value"><span class="hljs-string">"2011-11-24"</span></span>,
+    "<span class="hljs-attribute">end</span>": <span class="hljs-value"><span class="hljs-string">"2011-11-25"</span></span>,
+    "<span class="hljs-attribute">hours_per_day</span>": <span class="hljs-value"><span class="hljs-number">8</span></span>,
+    "<span class="hljs-attribute">total_hours</span>": <span class="hljs-value"><span class="hljs-number">16</span></span>,
+    "<span class="hljs-attribute">facilitators</span>": <span class="hljs-value">[
+      {
+        "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">31</span></span>,
+        "<span class="hljs-attribute">first_name</span>": <span class="hljs-value"><span class="hljs-string">"Mischa"</span></span>,
+        "<span class="hljs-attribute">last_name</span>": <span class="hljs-value"><span class="hljs-string">"Ramseyer"</span></span>,
+        "<span class="hljs-attribute">photo</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
+        "<span class="hljs-attribute">country</span>": <span class="hljs-value"><span class="hljs-string">"CH"</span>
+      </span>}
+    ]</span>,
+    "<span class="hljs-attribute">city</span>": <span class="hljs-value"><span class="hljs-string">"Zürich"</span></span>,
+    "<span class="hljs-attribute">country</span>": <span class="hljs-value"><span class="hljs-string">"CH"</span></span>,
+    "<span class="hljs-attribute">rating</span>": <span class="hljs-value"><span class="hljs-number">8</span></span>,
+    "<span class="hljs-attribute">confirmed</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
+    "<span class="hljs-attribute">free</span>": <span class="hljs-value"><span class="hljs-literal">false</span></span>,
+    "<span class="hljs-attribute">online</span>": <span class="hljs-value"><span class="hljs-literal">false</span>
+  </span>},
+  {
+    "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">270</span></span>,
+    "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"Management 3.0 two day course"</span></span>,
+    "<span class="hljs-attribute">type</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
+      "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Standard 2-days Course"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">spoken_languages</span>": <span class="hljs-value">[
+      <span class="hljs-string">"French"</span>
+    ]</span>,
+    "<span class="hljs-attribute">start</span>": <span class="hljs-value"><span class="hljs-string">"2012-03-22"</span></span>,
+    "<span class="hljs-attribute">end</span>": <span class="hljs-value"><span class="hljs-string">"2012-03-23"</span></span>,
+    "<span class="hljs-attribute">hours_per_day</span>": <span class="hljs-value"><span class="hljs-number">8</span></span>,
+    "<span class="hljs-attribute">total_hours</span>": <span class="hljs-value"><span class="hljs-number">16</span></span>,
+    "<span class="hljs-attribute">facilitators</span>": <span class="hljs-value">[
+      {
+        "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">36</span></span>,
+        "<span class="hljs-attribute">first_name</span>": <span class="hljs-value"><span class="hljs-string">"François"</span></span>,
+        "<span class="hljs-attribute">last_name</span>": <span class="hljs-value"><span class="hljs-string">"Beauregard"</span></span>,
+        "<span class="hljs-attribute">photo</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
+        "<span class="hljs-attribute">country</span>": <span class="hljs-value"><span class="hljs-string">"CA"</span>
+      </span>}
+    ]</span>,
+    "<span class="hljs-attribute">city</span>": <span class="hljs-value"><span class="hljs-string">"Montréal"</span></span>,
+    "<span class="hljs-attribute">country</span>": <span class="hljs-value"><span class="hljs-string">"CA"</span></span>,
+    "<span class="hljs-attribute">rating</span>": <span class="hljs-value"><span class="hljs-number">5.65</span></span>,
+    "<span class="hljs-attribute">confirmed</span>": <span class="hljs-value"><span class="hljs-literal">false</span></span>,
+    "<span class="hljs-attribute">free</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
+    "<span class="hljs-attribute">online</span>": <span class="hljs-value"><span class="hljs-literal">false</span>
+  </span>}
+]</code></pre><div style="height: 1px;"></div></div></div></div></div><div id="events-event" class="resource"><h3 class="resource-heading">Event <a href="#events-event" class="permalink">&nbsp;&para;</a></h3><div id="events-event-get" class="action get"><h4 class="action-heading"><div class="name">Get Event</div><a href="#events-event-get" class="method get">GET</a><code class="uri">/events/{id}</code></h4><p>Get a detailed info about event</p>
+<h4>Example URI</h4><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname">https://api.workshopbutler.com</span>/events/<span class="hljs-attribute" title="id">id</span></span></div><div class="title"><strong>URI Parameters</strong><div class="collapse-button show"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><dl class="inner"><dt>id</dt><dd><code>number|string</code>&nbsp;<span class="required">(required)</span>&nbsp;<p>It could be either a numerical or string (hashed) event id. The latter is preferable.</p>
+</dd></dl></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
+  "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">1234</span></span>,
+  "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"Management 3.0 - Curso de 2 días"</span></span>,
+  "<span class="hljs-attribute">type</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
+    "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Standard 2-days Course"</span>
+  </span>}</span>,
+  "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Curso Oficial Management 3.0 en Castellano"</span></span>,
+  "<span class="hljs-attribute">spoken_languages</span>": <span class="hljs-value">[
+    <span class="hljs-string">"Spanish"</span>
+  ]</span>,
+  "<span class="hljs-attribute">materials_language</span>": <span class="hljs-value"><span class="hljs-string">"English"</span></span>,
+  "<span class="hljs-attribute">additional_info</span>": <span class="hljs-value"><span class="hljs-string">"precios Early Bird hasta el 31 de ...."</span></span>,
+  "<span class="hljs-attribute">start</span>": <span class="hljs-value"><span class="hljs-string">"2013-02-04"</span></span>,
+  "<span class="hljs-attribute">end</span>": <span class="hljs-value"><span class="hljs-string">"2013-02-05"</span></span>,
+  "<span class="hljs-attribute">hours_per_day</span>": <span class="hljs-value"><span class="hljs-number">8</span></span>,
+  "<span class="hljs-attribute">total_hours</span>": <span class="hljs-value"><span class="hljs-number">16</span></span>,
+  "<span class="hljs-attribute">facilitators</span>": <span class="hljs-value">[
+    {
+      "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">76</span></span>,
+      "<span class="hljs-attribute">first_name</span>": <span class="hljs-value"><span class="hljs-string">"Angel"</span></span>,
+      "<span class="hljs-attribute">last_name</span>": <span class="hljs-value"><span class="hljs-string">"Medinilla"</span></span>,
+      "<span class="hljs-attribute">photo</span>": <span class="hljs-value"><span class="hljs-string">"https://secure.gravatar.com/avatar/bfe39d10318bb80b9efe49c72065c548?s=300"</span></span>,
+      "<span class="hljs-attribute">country</span>": <span class="hljs-value"><span class="hljs-string">"ES"</span>
+    </span>}
+  ]</span>,
+  "<span class="hljs-attribute">city</span>": <span class="hljs-value"><span class="hljs-string">"Barcelona"</span></span>,
+  "<span class="hljs-attribute">country</span>": <span class="hljs-value"><span class="hljs-string">"ES"</span></span>,
+  "<span class="hljs-attribute">website</span>": <span class="hljs-value"><span class="hljs-string">"http://www.proyectalis.com/2012/12/10/semana-de-formacion-barcelona-2013/"</span></span>,
+  "<span class="hljs-attribute">registration_page</span>": <span class="hljs-value"><span class="hljs-string">"http://www.proyectalis.com/2012/12/10/semana-de-formacion-barcelona-2013/"</span></span>,
+  "<span class="hljs-attribute">rating</span>": <span class="hljs-value"><span class="hljs-number">5.5</span></span>,
+  "<span class="hljs-attribute">confirmed</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
+  "<span class="hljs-attribute">free</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
+  "<span class="hljs-attribute">online</span>": <span class="hljs-value"><span class="hljs-literal">false</span>
+</span>}</code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>400</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div></div></div></div></div></section><section id="event-requests" class="resource-group"><h2 class="group-heading">Event Requests <a href="#event-requests" class="permalink">&para;</a></h2><div id="event-requests-event-requests" class="resource"><h3 class="resource-heading">Event Requests <a href="#event-requests-event-requests" class="permalink">&nbsp;&para;</a></h3><div id="event-requests-event-requests-post" class="action post"><h4 class="action-heading"><div class="name">Create New Event Request</div><a href="#event-requests-event-requests-post" class="method post">POST</a><code class="uri">/event-requests</code></h4><p>Adds a new event request to the system</p>
+<h4>Example URI</h4><div class="definition"><span class="method post">POST</span>&nbsp;<span class="uri"><span class="hostname">https://api.workshopbutler.com</span>/event-requests</span></div><div class="title"><strong>Response&nbsp;&nbsp;<code>201</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>400</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div></div></div></div></div></section><section id="facilitators" class="resource-group"><h2 class="group-heading">Facilitators <a href="#facilitators" class="permalink">&para;</a></h2><div id="facilitators-facilitators" class="resource"><h3 class="resource-heading">Facilitators <a href="#facilitators-facilitators" class="permalink">&nbsp;&para;</a></h3><div id="facilitators-facilitators-get" class="action get"><h4 class="action-heading"><div class="name">Facilitator List</div><a href="#facilitators-facilitators-get" class="method get">GET</a><code class="uri">/facilitators</code></h4><p>Get a list of facilitators/trainers</p>
+<h4>Example URI</h4><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname">https://api.workshopbutler.com</span>/facilitators</span></div></div><div id="facilitators-facilitators-get-1" class="action get"><h4 class="action-heading"><div class="name">Get Facilitator</div><a href="#facilitators-facilitators-get-1" class="method get">GET</a><code class="uri">/facilitators/{id}</code></h4><p>Get a detailed info about facilitator</p>
+<h4>Example URI</h4><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname">https://api.workshopbutler.com</span>/facilitators/<span class="hljs-attribute" title="id">id</span></span></div><div class="title"><strong>URI Parameters</strong><div class="collapse-button show"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><dl class="inner"><dt>id</dt><dd><code>number</code>&nbsp;<span class="required">(required)</span>&nbsp;<p>Id of the facilitator</p>
+</dd></dl></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
+    <span class="hljs-string">"id"</span> : <span class="hljs-number">25</span>,
+    <span class="hljs-string">"first_name"</span> : <span class="hljs-string">"Sergey"</span>,
+    <span class="hljs-string">"last_name"</span> : <span class="hljs-string">"Kotlov"</span>,
+    <span class="hljs-string">"email_address"</span> : <span class="hljs-string">"skotlov@gmail.com"</span>,
+    <span class="hljs-string">"image"</span> : <span class="hljs-string">"https://secure.gravatar.com/avatar/996e4a0e5366080a444e43a4b446fcf6?s=300"</span>,
+    <span class="hljs-string">"address"</span> : {
+        <span class="hljs-string">"street_1"</span> : <span class="hljs-string">"3 Kotelnikova alley 75"</span>,
+        <span class="hljs-string">"street_2"</span> : <span class="hljs-literal">null</span>,
+        <span class="hljs-string">"city"</span> : <span class="hljs-string">"Saint-Petersburg"</span>,
+        <span class="hljs-string">"post_code"</span> : <span class="hljs-string">"197341"</span>,
+        <span class="hljs-string">"province"</span> : <span class="hljs-string">"----"</span>,
+        <span class="hljs-string">"country"</span> : <span class="hljs-string">"RU"</span>
+    },
+    <span class="hljs-string">"bio"</span> : <span class="hljs-string">"blabla"</span>,
+    <span class="hljs-string">"interests"</span> : <span class="hljs-literal">null</span>,
+    <span class="hljs-string">"twitter_handle"</span> : <span class="hljs-string">"skotlov"</span>,
+    <span class="hljs-string">"facebook_url"</span> : <span class="hljs-literal">null</span>,
+    <span class="hljs-string">"linkedin_url"</span> : <span class="hljs-literal">null</span>,
+    <span class="hljs-string">"google_plus_url"</span> : <span class="hljs-literal">null</span>,
+    <span class="hljs-string">"website"</span> : <span class="hljs-string">"http://changegeek.ru"</span>,
+    <span class="hljs-string">"blog"</span> : <span class="hljs-string">"http://changegeek.ru"</span>,
+    <span class="hljs-string">"active"</span> : <span class="hljs-literal">true</span>,
+    <span class="hljs-string">"organisations"</span> : [ {
+        <span class="hljs-string">"id"</span> : <span class="hljs-string">"24"</span>,
+        <span class="hljs-string">"name"</span> : <span class="hljs-string">"Happy Melly One BV"</span>,
+        <span class="hljs-string">"city"</span> : <span class="hljs-string">"Rotterdam"</span>,
+        <span class="hljs-string">"country"</span> : <span class="hljs-string">"NL"</span>,
+        <span class="hljs-string">"website"</span> : <span class="hljs-literal">null</span>
+    } ],
+    <span class="hljs-string">"endorsements"</span> : [ {
+        <span class="hljs-string">"content"</span> : <span class="hljs-string">"I was impressed by his passion"</span>,
+        <span class="hljs-string">"name"</span> : <span class="hljs-string">"Sergey Kotlov"</span>,
+        <span class="hljs-string">"company"</span> : <span class="hljs-string">"Happy Melly"</span>
+    } ],
+    <span class="hljs-string">"materials"</span> : [ {
+        <span class="hljs-string">"type"</span> : <span class="hljs-string">"article"</span>,
+        <span class="hljs-string">"link"</span> : <span class="hljs-string">"http://mail.ru"</span>
+    }, {
+        <span class="hljs-string">"type"</span> : <span class="hljs-string">"video"</span>,
+        <span class="hljs-string">"link"</span> : <span class="hljs-string">"http://hithat.com"</span>
+    }, {
+        <span class="hljs-string">"type"</span> : <span class="hljs-string">"casestudy"</span>,
+        <span class="hljs-string">"link"</span> : <span class="hljs-string">"http://hithat.com"</span>
+    } ],
+    <span class="hljs-string">"years_of_experience"</span> -&gt; <span class="hljs-number">3</span>,
+    <span class="hljs-string">"number_of_events"</span> -&gt; <span class="hljs-number">65</span>,
+    <span class="hljs-string">"rating"</span>: <span class="hljs-number">0.0</span>,
+    <span class="hljs-string">"statistics"</span>: {
+      <span class="hljs-string">"public_rating"</span>: <span class="hljs-number">4.56</span>,
+      <span class="hljs-string">"private_rating"</span>: <span class="hljs-number">4.56</span>,
+      <span class="hljs-string">"public_median"</span>: <span class="hljs-number">7</span>,
+      <span class="hljs-string">"private_rating"</span>: <span class="hljs-number">6</span>,
+      <span class="hljs-string">"public_nps"</span>: <span class="hljs-number">45.5</span>,
+      <span class="hljs-string">"private_nps"</span>: <span class="hljs-number">56.7</span>,
+      <span class="hljs-string">"number_of_public_evaluations"</span>: <span class="hljs-number">57</span>,
+      <span class="hljs-string">"number_of_private_evaluations"</span>: <span class="hljs-number">156</span>
+    },
+    <span class="hljs-string">"badges"</span> : [ {
+        <span class="hljs-string">"name"</span> : <span class="hljs-string">"Yay4Monday"</span>,
+        <span class="hljs-string">"url"</span> : <span class="hljs-string">"https://d2ttjh3tmuazph.cloudfront.net/badges/aae9390445ddb5e3935f8a2f0cd1eb5388f21619.jpg"</span>
+    }, {
+        <span class="hljs-string">"name"</span> : <span class="hljs-string">"Conference Talk"</span>,
+        <span class="hljs-string">"url"</span> : <span class="hljs-string">"https://d2ttjh3tmuazph.cloudfront.net/badges/7281fe689afb695f0c1f84baaf0af18e1460514a.jpg"</span>
+    } ]
+}</code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>404</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div></div></div></div></div></section></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 30 Jan 2018</p><script>/* eslint-env browser */
+/* eslint quotes: [2, "single"] */
+'use strict';
+
+/*
+  Determine if a string ends with another string.
+*/
+function endsWith(str, suffix) {
+    return str.indexOf(suffix, str.length - suffix.length) !== -1;
+}
+
+/*
+  Get a list of direct child elements by class name.
+*/
+function childrenByClass(element, name) {
+  var filtered = [];
+
+  for (var i = 0; i < element.children.length; i++) {
+    var child = element.children[i];
+    var classNames = child.className.split(' ');
+    if (classNames.indexOf(name) !== -1) {
+      filtered.push(child);
+    }
+  }
+
+  return filtered;
+}
+
+/*
+  Get an array [width, height] of the window.
+*/
+function getWindowDimensions() {
+  var w = window,
+      d = document,
+      e = d.documentElement,
+      g = d.body,
+      x = w.innerWidth || e.clientWidth || g.clientWidth,
+      y = w.innerHeight || e.clientHeight || g.clientHeight;
+
+  return [x, y];
+}
+
+/*
+  Collapse or show a request/response example.
+*/
+function toggleCollapseButton(event) {
+    var button = event.target.parentNode;
+    var content = button.parentNode.nextSibling;
+    var inner = content.children[0];
+
+    if (button.className.indexOf('collapse-button') === -1) {
+      // Clicked without hitting the right element?
+      return;
+    }
+
+    if (content.style.maxHeight && content.style.maxHeight !== '0px') {
+        // Currently showing, so let's hide it
+        button.className = 'collapse-button';
+        content.style.maxHeight = '0px';
+    } else {
+        // Currently hidden, so let's show it
+        button.className = 'collapse-button show';
+        content.style.maxHeight = inner.offsetHeight + 12 + 'px';
+    }
+}
+
+function toggleTabButton(event) {
+    var i, index;
+    var button = event.target;
+
+    // Get index of the current button.
+    var buttons = childrenByClass(button.parentNode, 'tab-button');
+    for (i = 0; i < buttons.length; i++) {
+        if (buttons[i] === button) {
+            index = i;
+            button.className = 'tab-button active';
+        } else {
+            buttons[i].className = 'tab-button';
+        }
+    }
+
+    // Hide other tabs and show this one.
+    var tabs = childrenByClass(button.parentNode.parentNode, 'tab');
+    for (i = 0; i < tabs.length; i++) {
+        if (i === index) {
+            tabs[i].style.display = 'block';
+        } else {
+            tabs[i].style.display = 'none';
+        }
+    }
+}
+
+/*
+  Collapse or show a navigation menu. It will not be hidden unless it
+  is currently selected or `force` has been passed.
+*/
+function toggleCollapseNav(event, force) {
+    var heading = event.target.parentNode;
+    var content = heading.nextSibling;
+    var inner = content.children[0];
+
+    if (heading.className.indexOf('heading') === -1) {
+      // Clicked without hitting the right element?
+      return;
+    }
+
+    if (content.style.maxHeight && content.style.maxHeight !== '0px') {
+      // Currently showing, so let's hide it, but only if this nav item
+      // is already selected. This prevents newly selected items from
+      // collapsing in an annoying fashion.
+      if (force || window.location.hash && endsWith(event.target.href, window.location.hash)) {
+        content.style.maxHeight = '0px';
+      }
+    } else {
+      // Currently hidden, so let's show it
+      content.style.maxHeight = inner.offsetHeight + 12 + 'px';
+    }
+}
+
+/*
+  Refresh the page after a live update from the server. This only
+  works in live preview mode (using the `--server` parameter).
+*/
+function refresh(body) {
+    document.querySelector('body').className = 'preload';
+    document.body.innerHTML = body;
+
+    // Re-initialize the page
+    init();
+    autoCollapse();
+
+    document.querySelector('body').className = '';
+}
+
+/*
+  Determine which navigation items should be auto-collapsed to show as many
+  as possible on the screen, based on the current window height. This also
+  collapses them.
+*/
+function autoCollapse() {
+  var windowHeight = getWindowDimensions()[1];
+  var itemsHeight = 64; /* Account for some padding */
+  var itemsArray = Array.prototype.slice.call(
+    document.querySelectorAll('nav .resource-group .heading'));
+
+  // Get the total height of the navigation items
+  itemsArray.forEach(function (item) {
+    itemsHeight += item.parentNode.offsetHeight;
+  });
+
+  // Should we auto-collapse any nav items? Try to find the smallest item
+  // that can be collapsed to show all items on the screen. If not possible,
+  // then collapse the largest item and do it again. First, sort the items
+  // by height from smallest to largest.
+  var sortedItems = itemsArray.sort(function (a, b) {
+    return a.parentNode.offsetHeight - b.parentNode.offsetHeight;
+  });
+
+  while (sortedItems.length && itemsHeight > windowHeight) {
+    for (var i = 0; i < sortedItems.length; i++) {
+      // Will collapsing this item help?
+      var itemHeight = sortedItems[i].nextSibling.offsetHeight;
+      if ((itemsHeight - itemHeight <= windowHeight) || i === sortedItems.length - 1) {
+        // It will, so let's collapse it, remove its content height from
+        // our total and then remove it from our list of candidates
+        // that can be collapsed.
+        itemsHeight -= itemHeight;
+        toggleCollapseNav({target: sortedItems[i].children[0]}, true);
+        sortedItems.splice(i, 1);
+        break;
+      }
+    }
+  }
+}
+
+/*
+  Initialize the interactive functionality of the page.
+*/
+function init() {
+    var i, j;
+
+    // Make collapse buttons clickable
+    var buttons = document.querySelectorAll('.collapse-button');
+    for (i = 0; i < buttons.length; i++) {
+        buttons[i].onclick = toggleCollapseButton;
+
+        // Show by default? Then toggle now.
+        if (buttons[i].className.indexOf('show') !== -1) {
+            toggleCollapseButton({target: buttons[i].children[0]});
+        }
+    }
+
+    var responseCodes = document.querySelectorAll('.example-names');
+    for (i = 0; i < responseCodes.length; i++) {
+        var tabButtons = childrenByClass(responseCodes[i], 'tab-button');
+        for (j = 0; j < tabButtons.length; j++) {
+            tabButtons[j].onclick = toggleTabButton;
+
+            // Show by default?
+            if (j === 0) {
+                toggleTabButton({target: tabButtons[j]});
+            }
+        }
+    }
+
+    // Make nav items clickable to collapse/expand their content.
+    var navItems = document.querySelectorAll('nav .resource-group .heading');
+    for (i = 0; i < navItems.length; i++) {
+        navItems[i].onclick = toggleCollapseNav;
+
+        // Show all by default
+        toggleCollapseNav({target: navItems[i].children[0]});
+    }
+}
+
+// Initial call to set up buttons
+init();
+
+window.onload = function () {
+    autoCollapse();
+    // Remove the `preload` class to enable animations
+    document.querySelector('body').className = '';
+};
+</script></body></html>
