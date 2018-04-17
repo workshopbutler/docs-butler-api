@@ -1,15 +1,19 @@
 ## Events List [/events]
 
-### Get Events [GET /events?future={future}&public={public}&achived={archived}&countryCode={country}&eventType={type}]
+### Get Events [GET /events{?future}{&public}{&archived}{&countryCode}{&eventType}{&trainerId}{&widgetId}{&confirmed}{&fields}]
 
 Get a list of events
 
 + Parameters
-    + future (boolean, optional) - If true, only future events in the list. If false, only past events in the list.
-    + public (boolean, optional) - If true, only public events in the list. If false, only private events int he list.
-    + archived (boolean, optional) - If true, only archived events in the list. If false, only active events in the list
-    + country: "DE" (string, optional) - ISO 8166-2 country code. If set, only events from this country in the list.
-    + type: 1 (number, optional) - Id of event type. If set, only events with this type in the list.
+    + future: true (boolean, optional) - If true, only future events in the list. If false, only past events in the list.
+    + public: false (boolean, optional) - If true, only public events in the list. If false, only private events int he list.
+    + archived: true (boolean, optional) - If true, only archived events in the list. If false, only active events in the list
+    + countryCode: "DE" (string, optional) - ISO 8166-2 country code. If set, only events from this country in the list.
+    + eventType: 1 (number, optional) - Id of event type. If set, only events with this type in the list.
+    + trainerId: 5 (number, optional) - If set, only the events ran by this trainer are returned
+    + confirmed: false (boolean, optional) - If set, events are filtered by their confirmation state
+    + widgetId: "xjl34" (string, optional) - DEPRECATED
+    + fields: "title,city" (string, optional) - The output contains only the defined fields
 
 + Attributes
     + id (number) - Id of the event
@@ -51,7 +55,8 @@ Get a list of events
                 "first_name" : "Mischa",
                 "last_name" : "Ramseyer",
                 "photo" : null,
-                "country" : "CH"
+                "country" : "CH",
+                "rating": null
               } ],
               "city" : "Zürich",
               "country" : "CH",
@@ -76,7 +81,8 @@ Get a list of events
                 "first_name" : "François",
                 "last_name" : "Beauregard",
                 "photo" : null,
-                "country" : "CA"
+                "country" : "CA",
+                "rating": null
               } ],
               "city" : "Montréal",
               "country" : "CA",
@@ -88,12 +94,13 @@ Get a list of events
 
 ## Event [/events]
 
-### Get Event [GET /events/{id}]
+### Get Event [GET /events/{id}?{fields}]
 
 Get a detailed info about event
 
 + Parameters
     + id (number|string) - It could be either a numerical or string (hashed) event id. The latter is preferable.
+    + fields (string, optional) - Comma-separated list of event attributes to return. 'trainer.rating' adds a public trainer ratings for each trainer (brands only)
 
 + Attributes
     + id (number) - Numerical id of the event
@@ -105,7 +112,7 @@ Get a detailed info about event
     + additional_info (string, optional) - DEPRECATED. Will be removed in the next version without further notice.
     + start: "2017-05-19" (string) - Start date of the event
     + end: "2017-06-20" (string) - End date of the event
-    + hours_per_day: 5 (number) - If this value equals 0, then a user didn't set a number of hours per day
+    + hours_per_day: 5 (number) - If this value equals 0, then a user didn't set a number of hours per day`
     + total_hours: 16 (number) - Total length of the event. If this value equals 0, then a user didn't set a total number of hours for the event
     + city: "London" (string)
     + country: "GB" (string) - ISO 8166-2 2-letters country code
@@ -161,7 +168,8 @@ Get a detailed info about event
                     "first_name" : "Angel",
                     "last_name" : "Medinilla",
                     "photo" : "https://secure.gravatar.com/avatar/bfe39d10318bb80b9efe49c72065c548?s=300",
-                    "country" : "ES"
+                    "country" : "ES",
+                    "rating": 9.55
                 } ],
                 "city" : "Barcelona",
                 "country" : "ES",

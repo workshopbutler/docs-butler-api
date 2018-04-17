@@ -1,10 +1,53 @@
-## Facilitators [/facilitators]
+## Facilitators [/facilitators{?fields}]
 
 ### Facilitator List [GET]
 
-Get a list of facilitators/trainers
+Returns the list of all trainers for the account. The trainers are returned sorted by name.
+
+The content of the list depends on the type of account:
+
+- for knowledge brands, it contains all active trainers/facilitators
+- for training companies, it contains all active trainers, both employees and external trainers
+- for trainers, it contains the only record of the trainer himself
+
++ Parameters
+    + fields: "first_name,email_address" (string, optional) - The output contains only the defined fields
 
 + Attributes (array[Facilitator])
+
++ Response 200 (application/json)
+    + Body
+
+            [ {
+              "id" : 12,
+              "first_name" : "Nick",
+              "last_name" : "Doom",
+              "photo" : null,
+              "country" : "GB",
+              "languages" : [ "English" ],
+              "countries" : [ "GB" ],
+              "rating" : 6.416666984558105,
+              "badges" : [ {
+                "name" : "Certificate of Attendance",
+                "url" : "https://d2ttjh3tmuazph.cloudfront.net/badges/3761a40b388780d62d73abb88896cef671c981c1.jpg"
+              }, {
+                "name" : "Certificate of Knowledge",
+                "url" : "https://d2ttjh3tmuazph.cloudfront.net/badges/e473d0a30a730c33a2f41a47d178c57c9963e8b5.jpg"
+              }, {
+                "name" : "Change For Happiness",
+                "url" : "https://d2ttjh3tmuazph.cloudfront.net/badges/ca751785ba194f43d7b19afa8226008e332f1976.jpg"
+              } ]
+            }, {
+              "id" : 14,
+              "first_name" : "Alejandra",
+              "last_name" : "Dojo",
+              "photo" : null,
+              "country" : "ES",
+              "languages" : [ "Spanish" ],
+              "countries" : [ "ES", "CO" ],
+              "rating" : 8.321,
+              "badges" : [ ]
+            }]
 
 ### Get Facilitator [GET /facilitators/{id}]
 

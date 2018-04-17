@@ -137,6 +137,7 @@
 + last_name (string)
 + photo (string) - Url of the person's photo
 + country (string) - ISO 8166-2 2-letters country code
++ rating (number) - Trainer's rating. May be 'null'
 
 ## Facilitator (object)
 + id (number) - Id of the facilitator

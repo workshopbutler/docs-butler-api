@@ -3,7 +3,7 @@ HOST: https://api.workshopbutler.com
 
 # Workshop Butler API
 
-The Workshop Butler API provides a set of methods to integrate
+[The Workshop Butler API](http://127.0.0.1:9000/) provides a set of methods to integrate
 accounts of knowledge brands and independent trainers with their websites
 to show scheduled events and licensed trainers, accept registrations and
 evaluations.
